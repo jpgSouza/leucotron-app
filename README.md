@@ -1,5 +1,5 @@
 # Leucotron App
-Desafio proposto pela Empresa Leucotron, localizada em Santa Rita do Sapucai.
+Desafio proposto pela Empresa Leucotron, localizada em Santa Rita do Sapucaí.
 
 ## Descrição
 O aplicativo tem como finalidade o armazenamento de informações curriculares de canditados à vagas de emprego de uma determinada empresa.
@@ -14,8 +14,8 @@ O aplicativo contém algumas funcionalidades essenciais, como:
 - Pesquisar.
 
 Além de duas funcionalidade extras, como:
-- Separar o candidato por vaga;
-- Gerar um relatorio em PDF.
+- Separar os candidatos por vaga;
+- Gerar um relatório em PDF.
 
 ## Wireframe 
 (Apenas teste de imagem no Readme, fazer alterações)
@@ -27,7 +27,7 @@ Além de duas funcionalidade extras, como:
 - Vá até Run -> Run App;
 - Escolha o dispositivo ou crie um novo;
 
-Ao se deparar com a primeira *view* (Tela de login), serão necessário duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
+Ao se deparar com a primeira *view* (Tela de login), serão necessárias duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
 - ***Login: admin***
 - ***Senha: admin***
 
