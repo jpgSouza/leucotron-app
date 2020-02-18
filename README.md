@@ -22,4 +22,8 @@ Além de duas funcionalidade extras, como:
 ![](https://github.com/jpgSouza/leucotron-app/blob/master/wireframe-app.jpeg)
 
 # Como usar?
-Ao se deparar com a primeira view (Tela de login)
+Ao se deparar com a primeira *view* (Tela de login), serão necessário duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
+- ***Login: admin***
+- ***Senha: admin***
+
+Após logado, o aplicativo usa da ferramenta *navigation drawer* para acessar as diferentes funcionalidades.
