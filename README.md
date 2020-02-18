@@ -18,3 +18,8 @@ Além de duas funcionalidade extras, como:
 - Gerar um relatorio em PDF.
 
 # Wireframe 
+(Apenas teste de imagem no Readme, fazer alterações)
+![](https://github.com/jpgSouza/leucotron-app/blob/master/wireframe-app.jpeg)
+
+# Como usar?
+Ao se deparar com a primeira view (Tela de login)
