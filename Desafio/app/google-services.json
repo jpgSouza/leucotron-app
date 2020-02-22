@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1013742769871",
+    "firebase_url": "https://safe-bag.firebaseio.com",
+    "project_id": "safe-bag",
+    "storage_bucket": "safe-bag.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013742769871:android:8d80d760e063861d67c9ba",
+        "android_client_info": {
+          "package_name": "br.com.leucotron.desafio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013742769871-3v3if4s23ouolanh260ck5q27qa9q8ai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXsKVwbQLlamlOu3aGW7UjOHy1mtSamkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013742769871-3v3if4s23ouolanh260ck5q27qa9q8ai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
