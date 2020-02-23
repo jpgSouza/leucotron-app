@@ -28,7 +28,7 @@ Além de duas funcionalidade extras, como:
 - Escolha o dispositivo ou crie um novo;
 
 Ao se deparar com a primeira *view* (Tela de login), serão necessárias duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
-- ***Login: admin***
+- ***Username: admin***
 - ***Senha: admin***
 
 Após logado, o aplicativo usa da ferramenta *navigation drawer* para acessar as diferentes funcionalidades.
