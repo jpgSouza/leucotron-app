@@ -1,6 +1,7 @@
-package br.com.leucotron.desafio;
+package br.com.leucotron.desafio.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import br.com.leucotron.desafio.R;
 
 import android.os.Bundle;
 

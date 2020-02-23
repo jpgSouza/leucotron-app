@@ -1,7 +1,9 @@
-package br.com.leucotron.desafio;
+package br.com.leucotron.desafio.view;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import br.com.leucotron.desafio.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +18,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference credentialsReference = databaseReference.child("credentials");
+
+    private TextInputEditText username;
+    private TextInputEditText password;
 
     private Button loginButton;
     private Button loginWithGoogleButton;
@@ -56,10 +69,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signin();
+            }
+        });
+
         if(mAuth.getCurrentUser() != null){
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
+
 
 
     }
@@ -67,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
     private void initComponents(){
         loginButton = findViewById(R.id.loginButtonId);
         loginWithGoogleButton = findViewById(R.id.googleButtonId);
+        username = findViewById(R.id.loginId);
+        password = findViewById(R.id.passwordId);
     }
 
     private void signInGoogle(){
@@ -131,6 +154,29 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this,
                 task -> updateUI(null));
+    }
+
+    private void signin(){
+        credentialsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                        if(objSnapshot.child("username").getValue().toString().equals(username.getText().toString())
+                                && objSnapshot.child("password").getValue().toString().equals(password.getText().toString())){
+                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }
