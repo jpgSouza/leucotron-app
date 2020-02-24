@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_person"
+        android:id="@+id/listImageId"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/namesListId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="#2980B9"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="1dp"
+            android:layout_margin="1dp"
+            />
+
+        <TextView
+            android:id="@+id/emailListId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="e-mail"
+            android:textColor="#a9a9a9"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="1dp"
+            android:layout_margin="1dp"
+            />
+        <TextView
+            android:id="@+id/phoneListId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefone"
+            android:textColor="#a9a9a9"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="1dp"
+            android:layout_margin="1dp"
+            />
+
+        <TextView
+            android:id="@+id/skillListId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skills"
+            android:textColor="#a9a9a9"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="1dp"
+            android:layout_margin="1dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

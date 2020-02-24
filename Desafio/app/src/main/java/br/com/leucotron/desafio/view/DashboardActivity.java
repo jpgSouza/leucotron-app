@@ -13,6 +13,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ImageView aboutButton;
     private ImageView registerButton;
+    private ImageView curriculumButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        curriculumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, ListCurriculumActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -44,5 +53,6 @@ public class DashboardActivity extends AppCompatActivity {
     public void initComponents(){
         aboutButton = findViewById(R.id.aboutSquareId);
         registerButton = findViewById(R.id.registerSquareId);
+        curriculumButton = findViewById(R.id.listSquareId);
     }
 }
