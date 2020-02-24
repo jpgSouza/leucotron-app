@@ -12,6 +12,7 @@ import android.widget.ImageView;
 public class DashboardActivity extends AppCompatActivity {
 
     private ImageView aboutButton;
+    private ImageView registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,21 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
 
     public void initComponents(){
         aboutButton = findViewById(R.id.aboutSquareId);
+        registerButton = findViewById(R.id.registerSquareId);
     }
 }
