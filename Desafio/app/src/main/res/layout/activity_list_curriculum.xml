@@ -79,27 +79,48 @@
         app:layout_constraintVertical_bias="0.086" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ListView
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="270dp"
+            android:id="@+id/listViewId"
             android:layout_width="320dp"
             android:layout_height="360dp"
-            android:id="@+id/listViewId"
-            >
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="270dp">
 
         </ListView>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/deleteButtonId"
+        android:text="Deletar"
+        android:textColor="#FFFF"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/delete_button_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/editButtonId"
+        android:text="Editar"
+        android:textColor="#ffff"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/edit_button_circle"
         android:drawablePadding="20dp"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
