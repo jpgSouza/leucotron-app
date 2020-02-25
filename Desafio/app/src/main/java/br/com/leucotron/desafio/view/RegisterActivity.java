@@ -31,122 +31,122 @@ import java.net.URI;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private StorageReference mStorageReference = FirebaseStorage.getInstance().getReference("Images");
+  private StorageReference mStorageReference = FirebaseStorage.getInstance().getReference("Images");
 
-    Person person = new Person();
-    Mask mask = new Mask();
+  Person person = new Person();
+  Mask mask = new Mask();
 
-    private TextInputEditText nameField;
-    private TextInputEditText lastnameField;
-    private TextInputEditText phoneNumberField;
-    private TextInputEditText emailField;
-    private TextInputEditText skillsField;
-    private ImageView photoField;
+  private TextInputEditText nameField;
+  private TextInputEditText lastnameField;
+  private TextInputEditText phoneNumberField;
+  private TextInputEditText emailField;
+  private TextInputEditText skillsField;
+  private ImageView photoField;
 
-    private Uri imguri;
+  private Uri imguri;
 
-    private Button registerButton;
+  private Button registerButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_register);
 
-        initComponents();
+    initComponents();
 
-        mask.phoneMask(phoneNumberField);
+    mask.phoneMask(phoneNumberField);
 
-        photoField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Filechooser();
-            }
-        });
+    photoField.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Filechooser();
+      }
+    });
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    registerButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
-                inputRecovery(person);
+        inputRecovery(person);
 
-                photoUpload();
-                person.addPerson(person);
+        photoUpload();
+        person.addPerson(person);
 
-                cleanFields();
-            }
-        });
+        cleanFields();
+      }
+    });
 
+  }
+
+
+  public void initComponents(){
+    nameField = findViewById(R.id.nameId);
+    lastnameField = findViewById(R.id.lastNameId);
+    phoneNumberField = findViewById(R.id.phoneNumberId);
+    emailField = findViewById(R.id.emailId);
+    skillsField = findViewById(R.id.skillsId);
+    registerButton = findViewById(R.id.registerButtonId);
+    photoField = findViewById(R.id.photoProfileId);
+  }
+
+  public void inputRecovery(Person person){
+    person.setName(nameField.getText().toString());
+    person.setLastname(lastnameField.getText().toString());
+    person.setPhoneNumber(phoneNumberField.getText().toString());
+    person.setEmail(emailField.getText().toString());
+    person.setSkill(skillsField.getText().toString());
+  }
+
+  public void cleanFields(){
+    nameField.setText("");
+    lastnameField.setText("");
+    phoneNumberField.setText("");
+    emailField.setText("");
+    skillsField.setText("");
+    photoField.setImageResource(R.drawable.ic_person);
+  }
+
+  public void Filechooser(){
+    Intent intent = new Intent();
+    intent.setType("image/'");
+    intent.setAction(Intent.ACTION_GET_CONTENT);
+    startActivityForResult(intent,1);
+
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+      imguri = data.getData();
+      photoField.setImageURI(imguri);
     }
 
+  }
 
-    public void initComponents(){
-        nameField = findViewById(R.id.nameId);
-        lastnameField = findViewById(R.id.lastNameId);
-        phoneNumberField = findViewById(R.id.phoneNumberId);
-        emailField = findViewById(R.id.emailId);
-        skillsField = findViewById(R.id.skillsId);
-        registerButton = findViewById(R.id.registerButtonId);
-        photoField = findViewById(R.id.photoProfileId);
-    }
+  public String getExtention(Uri uri){
+    ContentResolver contentResolver = getContentResolver();
+    MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+    return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+  }
 
-    public void inputRecovery(Person person){
-        person.setName(nameField.getText().toString());
-        person.setLastname(lastnameField.getText().toString());
-        person.setPhoneNumber(phoneNumberField.getText().toString());
-        person.setEmail(emailField.getText().toString());
-        person.setSkill(skillsField.getText().toString());
-    }
+  public void photoUpload(){
+    StorageReference storageReference = mStorageReference.child(System.currentTimeMillis()
+            + "." + getExtention(imguri));
 
-    public void cleanFields(){
-        nameField.setText("");
-        lastnameField.setText("");
-        phoneNumberField.setText("");
-        emailField.setText("");
-        skillsField.setText("");
-        photoField.setImageResource(R.drawable.ic_person);
-    }
+    storageReference.putFile(imguri)
+            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+              @Override
+              public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-    public void Filechooser(){
-        Intent intent = new Intent();
-        intent.setType("image/'");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imguri = data.getData();
-            photoField.setImageURI(imguri);
-        }
-
-    }
-
-    public String getExtention(Uri uri){
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
-    public void photoUpload(){
-        StorageReference storageReference = mStorageReference.child(System.currentTimeMillis()
-                + "." + getExtention(imguri));
-
-        storageReference.putFile(imguri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-    }
+              }
+            });
+  }
 
 }

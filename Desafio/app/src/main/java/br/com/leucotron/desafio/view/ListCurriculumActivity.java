@@ -120,7 +120,7 @@ public class ListCurriculumActivity extends AppCompatActivity {
         });
 
     }
-    
+
     class MyAdapter extends ArrayAdapter<String>{
         private Context context;
         private String rNames[];

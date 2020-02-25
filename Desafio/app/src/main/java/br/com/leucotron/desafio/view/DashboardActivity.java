@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ImageView registerButton;
     private ImageView curriculumButton;
     private ImageView logoutButton;
+    private ImageView searchButton;
 
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
@@ -89,6 +91,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +114,7 @@ public class DashboardActivity extends AppCompatActivity {
         curriculumButton = findViewById(R.id.listSquareId);
         email = findViewById(R.id.dashBoardEmailId);
         logoutButton = findViewById(R.id.logoutSquareId);
+        searchButton = findViewById(R.id.searchSquareId);
     }
 
     public void googleLogout(){
