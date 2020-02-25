@@ -2,6 +2,7 @@ package br.com.leucotron.desafio.view;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +83,18 @@ public class ListCurriculumActivity extends AppCompatActivity {
                         deletePerson();
                         deleteButton.setAlpha(0);
                         editButton.setAlpha(0);
+                    }
+                });
+
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ListCurriculumActivity.this,EditActivity.class);
+                        Bundle name = new Bundle();
+                        name.putString("Name", nameAux);
+                        intent.putExtras(name);
+                        startActivity(intent);
+                        finish();
                     }
                 });
 
@@ -192,8 +205,5 @@ public class ListCurriculumActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 }
