@@ -1,8 +1,11 @@
 package br.com.leucotron.desafio.view;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import br.com.leucotron.desafio.R;
 import br.com.leucotron.desafio.model.Person;
 
@@ -101,12 +105,22 @@ public class ListCurriculumActivity extends AppCompatActivity {
             }
         });
 
+        curriculumList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                selectedPerson = (String) parent.getItemAtPosition(position);
 
+                nameAux = selectedPerson;
+
+                recoveryPhoneNumber();
+
+                return true;
+            }
+        });
 
     }
-
-
+    
     class MyAdapter extends ArrayAdapter<String>{
         private Context context;
         private String rNames[];
@@ -171,6 +185,34 @@ public class ListCurriculumActivity extends AppCompatActivity {
                         }
                         MyAdapter adapter = new MyAdapter(getApplicationContext(), names, email,phone,skills);
                         curriculumList.setAdapter(adapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void recoveryPhoneNumber(){
+        personListReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                        p = objSnapshot.getValue(Person.class);
+                        if(p.getName().equals(nameAux)){
+                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                            callIntent.setData(Uri.parse("tel:"+p.getPhoneNumber()));
+
+                            if (ActivityCompat.checkSelfPermission(ListCurriculumActivity.this,
+                                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            }
+                            startActivity(callIntent);
+                        }
+
                     }
                 }
             }

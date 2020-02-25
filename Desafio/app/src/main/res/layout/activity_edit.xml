@@ -37,7 +37,7 @@
         android:layout_marginEnd="140dp"
         android:layout_marginBottom="110dp"
         android:background="@drawable/edit_button_circle"
-        android:text="Editar"
+        android:text="Salvar"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

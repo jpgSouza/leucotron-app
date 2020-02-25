@@ -6,10 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +59,7 @@ public class EditActivity extends AppCompatActivity {
                 editFields();
                 progressDialog = new ProgressDialog(EditActivity.this);
                 progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.setContentView(R.layout.edit_progress_dialog);
                 progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                 Runnable progressRunnable = new Runnable() {

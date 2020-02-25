@@ -5,8 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import br.com.leucotron.desafio.R;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
+    private ProgressDialog progressDialog;
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference credentialsReference = databaseReference.child("credentials");
@@ -43,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     static final int GOOGLE_SIGN = 123;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
+
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +136,35 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("TAG", "signin sucess");
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
+
+                        progressDialog = new ProgressDialog(LoginActivity.this);
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.login_progress_dialog);
+                        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                        Runnable progressRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.cancel();
+                            }
+                        };
+
+                        Handler pdCanceller = new Handler();
+                        pdCanceller.postDelayed(progressRunnable, 2000);
+
+                        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(LoginActivity.this,DashboardActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("Email", email);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
                     }else{
                         Log.w("TAG", "signin failure", task.getException());
                         Toast.makeText(this, "Signin Failed!", Toast.LENGTH_SHORT).show();
@@ -143,7 +178,8 @@ public class LoginActivity extends AppCompatActivity {
 
         if(user != null){
             String name = user.getDisplayName();
-            String email = user.getEmail();
+            email = user.getEmail();
+
         }else{
 
         }
@@ -164,8 +200,30 @@ public class LoginActivity extends AppCompatActivity {
                     for(DataSnapshot objSnapshot : dataSnapshot.getChildren()){
                         if(objSnapshot.child("username").getValue().toString().equals(username.getText().toString())
                                 && objSnapshot.child("password").getValue().toString().equals(password.getText().toString())){
-                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                            startActivity(intent);
+                            progressDialog = new ProgressDialog(LoginActivity.this);
+                            progressDialog.show();
+                            progressDialog.setContentView(R.layout.login_progress_dialog);
+                            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                            Runnable progressRunnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.cancel();
+                                }
+                            };
+
+                            Handler pdCanceller = new Handler();
+                            pdCanceller.postDelayed(progressRunnable, 2000);
+
+                            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(LoginActivity.this,DashboardActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
                         }
                     }
                 }
