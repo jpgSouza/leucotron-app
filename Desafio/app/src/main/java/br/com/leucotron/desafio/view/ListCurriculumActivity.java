@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -147,14 +148,16 @@ public class ListCurriculumActivity extends AppCompatActivity {
         private String rEmails[];
         private String rPhones[];
         private String rSkills[];
+        private String rImagesURL[];
 
-        MyAdapter(Context context, String names[], String email[], String phone[], String skills[]){
+        MyAdapter(Context context, String names[], String email[], String phone[], String skills[], String images[]){
             super(context, R.layout.list_row, names);
             this.context = context;
             this.rNames = names;
             this.rEmails = email;
             this.rPhones = phone;
             this.rSkills = skills;
+            this.rImagesURL = images;
         }
 
         @NonNull
@@ -166,11 +169,14 @@ public class ListCurriculumActivity extends AppCompatActivity {
             TextView email = row.findViewById(R.id.emailListId);
             TextView phoneNumber = row.findViewById(R.id.phoneListId);
             TextView skills = row.findViewById(R.id.skillListId);
+            ImageView image = row.findViewById(R.id.listImageId);
 
             names.setText(rNames[position]);
             email.setText(rEmails[position]);
             phoneNumber.setText(rPhones[position]);
             skills.setText(rSkills[position]);
+
+            Glide.with(getApplicationContext()).load(rImagesURL[position]).into(image);
 
             return row;
         }
@@ -196,14 +202,16 @@ public class ListCurriculumActivity extends AppCompatActivity {
                         String[] email = new String[person.size()];
                         String[] phone = new String[person.size()];
                         String[] skills = new String[person.size()];
+                        String[] images = new String[person.size()];
 
                         for(int i = 0; i<person.size(); i++){
                             names[i] = person.get(i).getName();
                             email[i] = person.get(i).getEmail();
                             phone[i] = person.get(i).getPhoneNumber();
                             skills[i] = person.get(i).getSkill();
+                            images[i] = person.get(i).getPhotoURL();
                         }
-                        MyAdapter adapter = new MyAdapter(getApplicationContext(), names, email,phone,skills);
+                        MyAdapter adapter = new MyAdapter(getApplicationContext(), names, email,phone,skills,images);
                         curriculumList.setAdapter(adapter);
                     }
                 }

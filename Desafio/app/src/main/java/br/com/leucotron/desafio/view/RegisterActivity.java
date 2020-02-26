@@ -7,11 +7,15 @@ import br.com.leucotron.desafio.R;
 import br.com.leucotron.desafio.controller.Mask;
 import br.com.leucotron.desafio.model.Person;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -28,8 +32,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.net.URI;
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    private ProgressDialog progressDialog;
 
     private StorageReference mStorageReference = FirebaseStorage.getInstance().getReference("Images");
 
@@ -43,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText skillsField;
     private ImageView photoField;
 
+    private String imageURL;
     private Uri imguri;
 
     private Button registerButton;
@@ -67,10 +75,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                inputRecovery(person);
-
                 photoUpload();
-                person.addPerson(person);
+
+                delay();
+                inputRecovery(person);
 
                 cleanFields();
             }
@@ -95,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
         person.setPhoneNumber(phoneNumberField.getText().toString());
         person.setEmail(emailField.getText().toString());
         person.setSkill(skillsField.getText().toString());
+
     }
 
     public void cleanFields(){
@@ -120,6 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imguri = data.getData();
             photoField.setImageURI(imguri);
+
         }
 
     }
@@ -134,11 +144,18 @@ public class RegisterActivity extends AppCompatActivity {
         StorageReference storageReference = mStorageReference.child(System.currentTimeMillis()
                 + "." + getExtention(imguri));
 
+
         storageReference.putFile(imguri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                imageURL = uri.toString();
+                                person.setPhotoURL(imageURL);
+                            }
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -147,6 +164,31 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    public void delay(){
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.login_progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);
+
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                progressDialog.dismiss();
+                person.addPerson(person);
+            }
+        });
     }
 
 }
