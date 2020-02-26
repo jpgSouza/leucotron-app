@@ -75,7 +75,7 @@ public class Person {
 
     public void checkNull(){
         if(name.equals("") || lastname.equals("") || phoneNumber.equals("")
-                || email.equals("") || skill.equals("") || photoURL.equals("")){
+                || email.equals("") || skill.equals("")){
             throw new EmptyFieldsException("Preencha os campos!");
         }
     }

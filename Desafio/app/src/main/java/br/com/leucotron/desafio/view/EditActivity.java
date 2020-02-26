@@ -60,9 +60,9 @@ public class EditActivity extends AppCompatActivity {
             name = bundle.getString("Name");
         }
 
-        mask.phoneMask(phoneEditField);
-
         initComponents();
+
+        mask.phoneMask(phoneEditField);
 
         recoveryFields();
 
