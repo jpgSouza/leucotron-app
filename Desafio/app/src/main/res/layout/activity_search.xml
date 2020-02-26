@@ -105,6 +105,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <ImageButton
         android:id="@+id/searchButtonId"
         android:layout_width="50dp"
@@ -122,9 +123,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchListId"
         android:layout_width="320dp"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:layout_marginTop="14dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="410dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,5 +133,41 @@
         tools:ignore="MissingConstraints">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <RadioGroup
+        android:id="@+id/radioGroupId"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483">
+
+        <RadioButton
+            android:id="@+id/radioButtonNameId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textColor="#2980B9" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEmailId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="#2980B9" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSkillsId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Habilidades"
+            android:textColor="#2980B9"/>
+
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

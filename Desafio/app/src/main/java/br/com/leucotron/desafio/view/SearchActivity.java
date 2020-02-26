@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -29,9 +31,12 @@ public class SearchActivity extends AppCompatActivity {
 
     private EditText searchField;
     private ImageButton searchButton;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     private RecyclerView searchListResult;
 
+    String option = "name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +52,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String searchName = searchField.getText().toString();
+                checkButton();
 
-                searchPersonInFirebase(searchName);
             }
         });
 
@@ -59,11 +63,12 @@ public class SearchActivity extends AppCompatActivity {
         searchField = findViewById(R.id.searchFieldId);
         searchButton = findViewById(R.id.searchButtonId);
         searchListResult = findViewById(R.id.searchListId);
+        radioGroup = findViewById(R.id.radioGroupId);
     }
 
-    public void searchPersonInFirebase(String searchName){
+    public void searchPersonInFirebase(String search, String option){
 
-        Query firebaseSearch = searchReference.orderByChild("name").startAt(searchName).endAt(searchName + "\uf8ff");
+        Query firebaseSearch = searchReference.orderByChild(option).startAt(search).endAt(search + "\uf8ff");
 
         FirebaseRecyclerAdapter<Person, MyAdapterHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Person, MyAdapterHolder>(
                 Person.class,
@@ -104,6 +109,27 @@ public class SearchActivity extends AppCompatActivity {
             personPhone.setText(phone);
             personSkill.setText(skill);
 
+        }
+
+    }
+
+    public void checkButton(){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        if(radioId == 2131230946){
+            option = "name";
+            String searchName = searchField.getText().toString();
+            searchPersonInFirebase(searchName, option);
+        }
+        if(radioId == 2131230945){
+            option = "email";
+            String searchEmail = searchField.getText().toString();
+            searchPersonInFirebase(searchEmail, option);
+        }
+        if(radioId == 2131230947){
+            option = "skill";
+            String searchSkill = searchField.getText().toString();
+            searchPersonInFirebase(searchSkill, option);
         }
 
     }
