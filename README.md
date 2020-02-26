@@ -20,31 +20,31 @@ Além de duas funcionalidade extras, como:
 - Telefonar para algum candidato.
 
 ## Bibliotecas utilizadas
-### Material design.
+#### Material design.
 
 - Utilizado no design dos componentes do aplicativo (https://material.io/).
 
-### Firebase Authentication.
+#### Firebase Authentication.
 
 - Login com o email do google.
 
-### Firebase database.
+#### Firebase database.
 
 - Armazenamento de dados
 
-### Firebase storage
+#### Firebase storage
 
 - Armazenamento das fotos
 
-### Mask
+#### Mask
 
 - Máscara utilizada nos campos de telefone (https://github.com/rtoshiro/MaskFormatter)
 
-### Firebase database UI
+#### Firebase database UI
 
 - Utilizada para pesquisas e recuperações de dados (https://github.com/firebase/FirebaseUI-Android)
 
-### Glide
+#### Glide
 
 - Carregar uma imagem a partir de um URL recuperado (https://github.com/bumptech/glide)
 
@@ -67,5 +67,5 @@ Após logado, o usuário pode navegar através da *dash board* para acessar as d
 ## Observação
 Talvez seja necessário ativar no dispositivo emulado ou físico a permissão para utilização do telefone para que a funcionalidade de ligar para o candidato funcione corretamente.
 
-
+<img src="https://github.com/jpgSouza/leucotron-app/blob/master/permissions-app.png" height="470" width="250">
 
