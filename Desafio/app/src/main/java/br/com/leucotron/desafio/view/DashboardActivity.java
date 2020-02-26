@@ -8,12 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -25,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private TextView email;
+    private ImageView profilePic;
 
     private ImageView aboutButton;
     private ImageView registerButton;
@@ -35,7 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
 
-    String googleEmail;
+    private String googleEmail;
+    private String googlePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +59,16 @@ public class DashboardActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            googleEmail = bundle.getString("Email");
+        Bundle emailBundle = getIntent().getExtras();
+        Bundle photoBundle = getIntent().getExtras();
+        if(emailBundle != null){
+            googleEmail = emailBundle.getString("Email");
         }
+        if(photoBundle != null){
+            googlePhoto = photoBundle.getString("URL");
+        }
+
+        Glide.with(this).load(googlePhoto).into(profilePic);
 
         if(mAuth.getCurrentUser() != null){
             FirebaseUser user = mAuth.getCurrentUser();
@@ -115,6 +125,7 @@ public class DashboardActivity extends AppCompatActivity {
         email = findViewById(R.id.dashBoardEmailId);
         logoutButton = findViewById(R.id.logoutSquareId);
         searchButton = findViewById(R.id.searchSquareId);
+        profilePic = findViewById(R.id.dashboardPictureId);
     }
 
     public void googleLogout(){

@@ -15,7 +15,7 @@
         <activity android:name=".view.SearchActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.EditActivity" />
-        <activity android:name=".view.ListCurriculumActivity" />
+        <activity android:name=".view.ListCurriculumActivity"/>
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.AboutActivity" />
         <activity android:name=".view.DashboardActivity" />

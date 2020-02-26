@@ -8,13 +8,16 @@ import br.com.leucotron.desafio.R;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
 
     String email;
+    String profilePhotoURL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,9 +162,14 @@ public class LoginActivity extends AppCompatActivity {
                             public void onCancel(DialogInterface dialog) {
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(LoginActivity.this,DashboardActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("Email", email);
-                                intent.putExtras(bundle);
+                                Bundle emailBundle = new Bundle();
+                                emailBundle.putString("Email", email);
+                                intent.putExtras(emailBundle);
+
+                                Bundle photoBundle = new Bundle();
+                                photoBundle.putString("URL", profilePhotoURL);
+                                intent.putExtras(photoBundle);
+
                                 startActivity(intent);
                                 finish();
                             }
@@ -177,8 +187,8 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
 
         if(user != null){
-            String name = user.getDisplayName();
             email = user.getEmail();
+            profilePhotoURL = user.getPhotoUrl().toString();
 
         }else{
 

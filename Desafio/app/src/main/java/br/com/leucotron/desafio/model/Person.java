@@ -15,10 +15,14 @@ public class Person {
     private String phoneNumber;
     private String email;
     private String skill;
-    private ImageView photo;
+    private String photoURL;
 
-    public void setImage(ImageView profile){
-        photo = profile;
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 
     public void addPerson(Person person){

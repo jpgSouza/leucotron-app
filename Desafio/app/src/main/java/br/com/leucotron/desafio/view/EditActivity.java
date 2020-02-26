@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import br.com.leucotron.desafio.R;
+import br.com.leucotron.desafio.controller.Mask;
 import br.com.leucotron.desafio.model.Person;
 
 public class EditActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class EditActivity extends AppCompatActivity {
     private DatabaseReference personListReference = databaseReference.child("person");
 
     private String name;
+    private String key;
 
     private TextInputEditText nameEditField;
     private TextInputEditText lastanameEditField;
@@ -39,6 +42,9 @@ public class EditActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    Person person = new Person();
+    Mask mask = new Mask();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,8 @@ public class EditActivity extends AppCompatActivity {
         if(bundle != null){
             name = bundle.getString("Name");
         }
+
+        mask.phoneMask(phoneEditField);
 
         initComponents();
 
@@ -121,6 +129,7 @@ public class EditActivity extends AppCompatActivity {
                             emailEditFiedl.setText(p.getEmail());
                             phoneEditField.setText(p.getPhoneNumber());
                             skillsEditField.setText(p.getSkill());
+                            key = objSnapshot.getKey();
                         }
                     }
                 }
@@ -134,7 +143,6 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void editFields(){
-        Person person = new Person();
         person.setName(nameEditField.getText().toString());
         person.setLastname(lastanameEditField.getText().toString());
         person.setEmail(emailEditFiedl.getText().toString());
@@ -145,8 +153,7 @@ public class EditActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot objSnapshot : dataSnapshot.getChildren()){
-                        Person p = objSnapshot.getValue(Person.class);
-                        if(p.getName().equals(person.getName())){
+                        if(key.equals(objSnapshot.getKey())){
                             personListReference.child(objSnapshot.getKey()).setValue(person);
                         }
                     }

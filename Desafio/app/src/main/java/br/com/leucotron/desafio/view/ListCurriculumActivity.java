@@ -3,7 +3,9 @@ package br.com.leucotron.desafio.view;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import br.com.leucotron.desafio.R;
@@ -110,11 +113,27 @@ public class ListCurriculumActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                selectedPerson = (String) parent.getItemAtPosition(position);
+                AlertDialog.Builder phoneAlert  = new AlertDialog.Builder(parent.getContext());
+                phoneAlert.setTitle("Phone Call");
+                phoneAlert.setMessage("Deseja telefonar para essa pessoa?");
+                phoneAlert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedPerson = (String) parent.getItemAtPosition(position);
 
-                nameAux = selectedPerson;
+                        nameAux = selectedPerson;
 
-                recoveryPhoneNumber();
+                        recoveryPhoneNumber();
+                    }
+                });
+
+                phoneAlert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                phoneAlert.create().show();
 
                 return true;
             }
