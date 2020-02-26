@@ -55,23 +55,24 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="260dp"
         android:hint="@string/senha"
+        android:textColorHint="#6DD5FA"
+        app:hintTextColor="#6DD5FA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:hintTextColor="#6DD5FA"
-        android:textColorHint="#6DD5FA"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,5 +144,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.787" />
 
+    <ImageView
+        android:layout_width="407dp"
+        android:layout_height="268dp"
+        android:layout_marginBottom="400dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

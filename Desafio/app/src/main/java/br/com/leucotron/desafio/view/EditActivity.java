@@ -25,22 +25,27 @@ import br.com.leucotron.desafio.model.Person;
 
 public class EditActivity extends AppCompatActivity {
 
+    //Pop up
+    private ProgressDialog progressDialog;
+
+    //Firebase reference
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference personListReference = databaseReference.child("person");
 
+    //Aux variables
     private String name;
     private String key;
 
+    //Input components
     private TextInputEditText nameEditField;
     private TextInputEditText lastanameEditField;
     private TextInputEditText emailEditFiedl;
     private TextInputEditText phoneEditField;
     private TextInputEditText skillsEditField;
 
+    //Event buttons
     private Button editButton;
     private Button cancelButton;
-
-    private ProgressDialog progressDialog;
 
     Person person = new Person();
     Mask mask = new Mask();

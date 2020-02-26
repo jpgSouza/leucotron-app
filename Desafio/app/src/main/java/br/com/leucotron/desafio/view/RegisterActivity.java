@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import br.com.leucotron.desafio.R;
+import br.com.leucotron.desafio.controller.EmptyFieldsException;
 import br.com.leucotron.desafio.controller.Mask;
 import br.com.leucotron.desafio.model.Person;
 
@@ -36,13 +37,16 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    //Pop up
     private ProgressDialog progressDialog;
 
+    //Firebase store reference
     private StorageReference mStorageReference = FirebaseStorage.getInstance().getReference("Images");
 
     Person person = new Person();
     Mask mask = new Mask();
 
+    //Input fields
     private TextInputEditText nameField;
     private TextInputEditText lastnameField;
     private TextInputEditText phoneNumberField;
@@ -50,9 +54,11 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText skillsField;
     private ImageView photoField;
 
+    //Aux variables
     private String imageURL;
     private Uri imguri;
 
+    //Event button
     private Button registerButton;
 
     @Override
@@ -76,11 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 photoUpload();
-
-                delay();
                 inputRecovery(person);
 
-                cleanFields();
             }
         });
 
@@ -104,6 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
         person.setEmail(emailField.getText().toString());
         person.setSkill(skillsField.getText().toString());
 
+        try{
+            person.checkNull();
+            delay();
+            cleanFields();
+        }catch (EmptyFieldsException e){
+            Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void cleanFields(){
@@ -186,7 +196,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialog) {
                 progressDialog.dismiss();
+
                 person.addPerson(person);
+
             }
         });
     }

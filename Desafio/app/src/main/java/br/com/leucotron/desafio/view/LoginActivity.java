@@ -8,16 +8,13 @@ import br.com.leucotron.desafio.R;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,23 +33,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
+
+    //Pop Up
     private ProgressDialog progressDialog;
 
+    //Firebase Reference
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference credentialsReference = databaseReference.child("credentials");
 
+    //Input fields
     private TextInputEditText username;
     private TextInputEditText password;
 
+    //Event buttons
     private Button loginButton;
     private Button loginWithGoogleButton;
 
+    //Google Signin config
     static final int GOOGLE_SIGN = 123;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
 
-    String email;
-    String profilePhotoURL;
+    //Aux variables
+    private String email;
+    private String profilePhotoURL;
 
 
     @Override
@@ -196,12 +200,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void Logout() {
-        FirebaseAuth.getInstance().signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                task -> updateUI(null));
-    }
-
     private void signin(){
         credentialsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -234,6 +232,8 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                             });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Credenciais incorretas", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

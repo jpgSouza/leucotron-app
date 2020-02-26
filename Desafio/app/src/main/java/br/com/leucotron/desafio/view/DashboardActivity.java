@@ -24,20 +24,25 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    //Pop Up
     private ProgressDialog progressDialog;
 
+    //Google dashboard infos
     private TextView email;
     private ImageView profilePic;
 
+    //Dashboard components
     private ImageView aboutButton;
     private ImageView registerButton;
     private ImageView curriculumButton;
     private ImageView logoutButton;
     private ImageView searchButton;
 
+    //Logout config
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
 
+    //Aux variables for google signIn
     private String googleEmail;
     private String googlePhoto;
 
@@ -59,6 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
+        //Receiving infos from another Activity
         Bundle emailBundle = getIntent().getExtras();
         Bundle photoBundle = getIntent().getExtras();
         if(emailBundle != null){
@@ -68,6 +74,7 @@ public class DashboardActivity extends AppCompatActivity {
             googlePhoto = photoBundle.getString("URL");
         }
 
+        //Showing Google profile photo
         Glide.with(this).load(googlePhoto).into(profilePic);
 
         if(mAuth.getCurrentUser() != null){
@@ -77,6 +84,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         email.setText(googleEmail);
 
+        //Dashboard components events
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

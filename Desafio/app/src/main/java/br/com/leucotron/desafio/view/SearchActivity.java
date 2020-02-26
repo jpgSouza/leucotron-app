@@ -26,16 +26,20 @@ import br.com.leucotron.desafio.model.Person;
 
 public class SearchActivity extends AppCompatActivity {
 
+    //Firebase reference
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference searchReference = databaseReference.child("person");
 
+    //Input fields
     private EditText searchField;
     private ImageButton searchButton;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
 
+    //Search list
     private RecyclerView searchListResult;
 
+    //Default filter
     String option = "name";
 
     @Override
@@ -114,24 +118,41 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void checkButton(){
+
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
-        if(radioId == 2131230946){
-            option = "name";
+        if(radioId == -1){
             String searchName = searchField.getText().toString();
             searchPersonInFirebase(searchName, option);
-        }
-        if(radioId == 2131230945){
-            option = "email";
-            String searchEmail = searchField.getText().toString();
-            searchPersonInFirebase(searchEmail, option);
-        }
-        if(radioId == 2131230947){
-            option = "skill";
-            String searchSkill = searchField.getText().toString();
-            searchPersonInFirebase(searchSkill, option);
+        }else{
+            findCheckedRadio(radioId);
         }
 
+    }
+
+    public void findCheckedRadio(int id){
+
+        switch (id){
+            case R.id.radioButtonNameId:
+                option = "name";
+                String searchName = searchField.getText().toString();
+                searchPersonInFirebase(searchName, option);
+                break;
+
+            case R.id.radioButtonEmailId:
+                option = "email";
+                String searchEmail = searchField.getText().toString();
+                searchPersonInFirebase(searchEmail, option);
+                break;
+
+            case R.id.radioButtonSkillsId:
+                option = "skill";
+                String searchSkill = searchField.getText().toString();
+                searchPersonInFirebase(searchSkill, option);
+                break;
+
+                default:break;
+        }
     }
 
 }

@@ -43,19 +43,24 @@ import br.com.leucotron.desafio.model.Person;
 
 public class ListCurriculumActivity extends AppCompatActivity {
 
+    //Event buttons
     private Button deleteButton;
     private Button editButton;
 
+    //Firebase reference
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference personListReference = databaseReference.child("person");
 
+    //List resource
     private ArrayList<Person> person = new ArrayList<>();
     private Person p;
     private ListView curriculumList;
     private String selectedPerson;
 
+    //Button animaton
     private Animation fade;
 
+    //Aux variable
     private String nameAux;
 
     @Override

@@ -5,6 +5,8 @@ import android.widget.ImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import br.com.leucotron.desafio.controller.EmptyFieldsException;
+
 public class Person {
 
     private DatabaseReference newDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -71,5 +73,11 @@ public class Person {
         this.skill = skill;
     }
 
+    public void checkNull(){
+        if(name.equals("") || lastname.equals("") || phoneNumber.equals("")
+                || email.equals("") || skill.equals("") || photoURL.equals("")){
+            throw new EmptyFieldsException("Preencha os campos!");
+        }
+    }
 
 }
