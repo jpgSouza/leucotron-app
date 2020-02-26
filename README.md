@@ -14,11 +14,12 @@ O aplicativo contém algumas funcionalidades essenciais, como:
 - Pesquisar.
 
 Além de duas funcionalidade extras, como:
-- Separar os candidatos por vaga;
-- Gerar um relatório em PDF.
+- Pesquisa com filtro;
+- Gerar um relatório em PDF(não implementado);
+- Autenticação com Google;
+- Telefonar para algum candidato.
 
 ## Wireframe 
-(Apenas teste de imagem no Readme, fazer alterações)
 ![](https://github.com/jpgSouza/leucotron-app/blob/master/wireframe-app.jpeg)
 
 ## Como usar?
@@ -26,11 +27,12 @@ Além de duas funcionalidade extras, como:
 - Importe o projeto para o Android Studio;
 - Vá até Run -> Run App;
 - Escolha o dispositivo ou crie um novo;
+- Dispositivo utilizado **Pixel 3XL** de API level **28**.
 
 Ao se deparar com a primeira *view* (Tela de login), serão necessárias duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
 - ***Username: admin***
 - ***Senha: admin***
 
-Após logado, o aplicativo usa da ferramenta *navigation drawer* para acessar as diferentes funcionalidades.
+Após logado, o usuário pode navegar através da *dash board* para acessar as diferentes funcionalidades.
 
 
