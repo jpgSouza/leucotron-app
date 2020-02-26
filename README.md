@@ -27,7 +27,7 @@ Além de duas funcionalidade extras, como:
 - Importe o projeto para o Android Studio;
 - Vá até Run -> Run App;
 - Escolha o dispositivo ou crie um novo;
-- Dispositivo utilizado **Pixel 3XL** de API level **28**.
+- Dispositivo utilizado foi o **Pixel 3 XL** de API level **28**.
 
 Ao se deparar com a primeira *view* (Tela de login), serão necessárias duas informações (login e senha), porém tais informações já são pré-definidas para a realização do login.
 - ***Username: admin***
